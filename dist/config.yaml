@@ -1,12 +1,9 @@
 project_name: terraform-provider-infoblox
 release:
   github:
-    owner: p2k3m
+    owner: pushkarmishrain
     name: terraform-provider-infoblox
   name_template: '{{.Tag}}'
-  extra_files:
-    - glob: terraform-registry-manifest.json
-      name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
 scoop:
   name: terraform-provider-infoblox
   commit_author:
@@ -17,14 +14,12 @@ scoop:
 builds:
   - id: terraform-provider-infoblox
     goos:
-      - freebsd
-      - windows
       - linux
       - darwin
     goarch:
       - amd64
+      - arm64
       - "386"
-      - arm
     goarm:
       - "6"
     gomips:
@@ -32,36 +27,23 @@ builds:
     goamd64:
       - v1
     targets:
-      - freebsd_amd64_v1
-      - freebsd_386
-      - freebsd_arm_6
-      - windows_amd64_v1
-      - windows_386
-      - windows_arm_6
       - linux_amd64_v1
+      - linux_arm64
       - linux_386
-      - linux_arm_6
       - darwin_amd64_v1
-    ignore:
-      - goos: darwin
-        goarch: "386"
+      - darwin_arm64
     dir: .
     main: .
-    binary: '{{ .ProjectName }}_v{{ .Version }}'
+    binary: terraform-provider-infoblox
     builder: go
-    mod_timestamp: '{{ .CommitTimestamp }}'
     gobinary: go
     command: build
     ldflags:
-      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}}
-    flags:
-      - -trimpath
-    env:
-      - CGO_ENABLED=0
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser
 archives:
   - id: default
-    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
-    format: zip
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
+    format: tar.gz
     files:
       - src: license*
       - src: LICENSE*
@@ -72,33 +54,13 @@ archives:
 snapshot:
   name_template: '{{ .Version }}-SNAPSHOT-{{ .ShortCommit }}'
 checksum:
-  name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
+  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'
   algorithm: sha256
-  extra_files:
-    - glob: terraform-registry-manifest.json
-      name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
-changelog:
-  skip: true
 dist: dist
-signs:
-  - id: default
-    cmd: gpg
-    args:
-      - --local-user
-      - '{{ .Env.GPG_FINGERPRINT }}'
-      - --output
-      - ${signature}
-      - --detach-sign
-      - ${artifact}
-    signature: ${artifact}.sig
-    artifacts: checksum
 env_files:
   github_token: ~/.config/goreleaser/github_token
   gitlab_token: ~/.config/goreleaser/gitlab_token
   gitea_token: ~/.config/goreleaser/gitea_token
-before:
-  hooks:
-    - go mod tidy
 source:
   name_template: '{{ .ProjectName }}-{{ .Version }}'
   format: tar.gz

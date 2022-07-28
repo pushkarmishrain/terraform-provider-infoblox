@@ -1,1 +1,1 @@
-{"project_name":"terraform-provider-infoblox","tag":"v2.1.7","previous_tag":"v2.1.6","version":"2.1.7","commit":"fc68bd8e4f7d63dfce8437eeb6230ee4f0d31793","date":"2022-07-28T13:03:04.351953+05:30","runtime":{"goos":"darwin","goarch":"arm64"}}
+{"project_name":"terraform-provider-infoblox","tag":"v1.0.0","previous_tag":"","version":"1.0.0","commit":"394ecd3aa9ae675f8618aeb973dee7ecbe9d2219","date":"2022-07-28T13:33:42.406754+05:30","runtime":{"goos":"darwin","goarch":"arm64"}}

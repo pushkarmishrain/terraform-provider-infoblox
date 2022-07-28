@@ -1,0 +1,5 @@
+2bb5c8e85e75fbf13840e72f3d8b9f90e79609d816b600c7be2387854e9f87df  terraform-provider-infoblox_1.0.0_darwin_amd64.tar.gz
+46c8d224725d46c33875c19c6d5f4d5ea3d1c47bdfe344de94cdee2a673d85b4  terraform-provider-infoblox_1.0.0_linux_arm64.tar.gz
+7de73107dea5ba8993c8a0f5d022ccc64c7b3674f31f5fc695f5f31fdccdfc81  terraform-provider-infoblox_1.0.0_linux_386.tar.gz
+a0c9263218047294954d6c6146caa2c865dbec80aa27a0b72ba36db79ebfa1f4  terraform-provider-infoblox_1.0.0_darwin_arm64.tar.gz
+b830eb6bbad673f4c491dbc825ced44b0efbf68fd4fe9d0a7200d049cba62272  terraform-provider-infoblox_1.0.0_linux_amd64.tar.gz
